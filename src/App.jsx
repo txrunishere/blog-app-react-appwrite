@@ -1,9 +1,51 @@
+import { useDispatch } from "react-redux";
+import { login, logout } from "./features/auth/authSlice";
+import authService from "./appwrite/auth.service";
+import { useEffect, useState } from "react";
+import { SyncLoader } from "react-spinners";
+import { Footer, Header } from "./components";
+
+
 const App = () => {
-  console.log(import.meta.env.VITE_APPWRITE_URL);
+  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
 
-  return (
-    <div>App</div>
-  )
-}
+  useEffect(() => {
+    authService
+      .getCurrentUser()
+      .then((data) => {
+        if (data) {
+          dispatch(login({ userData: data }));
+        } else {
+          dispatch(logout());
+        }
+      })
+      .catch((e) => console.log("E", e))
+      .finally(() => setLoading(false));
+  }, []);
 
-export default App
+  return !loading ? (
+    <div className="min-h-screen">
+      <div>
+        <Header />
+        <Footer />
+      </div>
+    </div>
+  ) : (
+    <div>
+      <SyncLoader
+        loading={loading}
+        cssOverride={{
+          display: "block",
+          margin: "2px",
+          borderColor: "blue",
+        }}
+        size={30}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />
+    </div>
+  );
+};
+
+export default App;
