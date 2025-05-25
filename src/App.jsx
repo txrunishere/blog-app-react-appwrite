@@ -3,7 +3,7 @@ import { login, logout } from "./features/auth/authSlice";
 import authService from "./appwrite/auth.service";
 import { useEffect, useState } from "react";
 import { SyncLoader } from "react-spinners";
-import { Footer, Header } from "./components";
+import RouterProvider from "./routes/RouterProvider";
 
 
 const App = () => {
@@ -25,12 +25,7 @@ const App = () => {
   }, []);
 
   return !loading ? (
-    <div className="min-h-screen">
-      <div>
-        <Header />
-        <Footer />
-      </div>
-    </div>
+    <RouterProvider />
   ) : (
     <div>
       <SyncLoader
