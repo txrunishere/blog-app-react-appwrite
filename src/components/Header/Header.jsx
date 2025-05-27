@@ -35,18 +35,18 @@ const Header = () => {
   ];
 
   return (
-    <header>
-      <Container>
-        <nav>
-          <div>
-            <Link to={"/"}>
+    <header className="w-full z-10 sticky top-2">
+      <Container className="bg-neutral-700 rounded-xl my-2">
+        <nav className="py-4 bg-transparent">
+          <div className="flex justify-between px-2">
+            <Link className="flex items-center" to={"/"}>
               <Logo />
             </Link>
-            <ul>
+            <ul className="flex gap-2 items-center">
               {navLinks.map((item, index) =>
                 item.active ? (
                   <li key={index}>
-                    <Button handler={() => navigate(item.slug)}>
+                    <Button bgColor="bg-gray-500" className="hover:bg-gray-600" handler={() => navigate(item.slug)}>
                       {item.name}
                     </Button>
                   </li>
