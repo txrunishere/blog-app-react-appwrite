@@ -1,5 +1,6 @@
 import { Editor } from "@tinymce/tinymce-react";
 import { Controller } from "react-hook-form";
+import config from "../config/config";
 
 export default function RTE({ name, control, defaultValue, label, ...props }) {
   return (
@@ -15,19 +16,15 @@ export default function RTE({ name, control, defaultValue, label, ...props }) {
         render={({ field: { onChange } }) => (
           <Editor
             initialValue={defaultValue || "Default Content"}
-            apiKey={`${import.meta.env.RTE_API_KEY}`}
+            apiKey="bwuwm06acgp8xh90t68nutkk0zctzpq0iqb8rvbzjc5lgg6r"
             init={{
               height: 500,
               menubar: false,
-              plugins: [
-                "advlist autolink lists link image charmap print preview anchor",
-                "searchreplace visualblocks code fullscreen",
-                "insertdatetime media table paste code help wordcount",
-              ],
+              plugins: ["lists", "link", "code", "wordcount"],
               toolbar:
-                "undo redo | formatselect | bold italic backcolor | \
-                  alignleft aligncenter alignright alignjustify | \
-                  bullist numlist outdent indent | removeformat | help",
+                "undo redo | formatselect | bold italic | \
+                alignleft aligncenter alignright alignjustify | \
+                bullist numlist outdent indent | removeformat | code",
               content_style:
                 "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
             }}

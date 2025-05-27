@@ -12,24 +12,23 @@ const PostForm = ({ post }) => {
         title: post?.title || "",
         slug: post?.slug || "",
         content: post?.content || "",
-        // featureImage: post?.featureImage || "",
         status: post?.status || true,
       },
     });
   const navigate = useNavigate();
-  const user = useSelector((state) => state.auth.userData);
+  const user = useSelector((state) => state.auth.user);
+  console.log(user);
+
+  console.log("Post Form", post);
 
   const onSubmitFrom = async (data) => {
+    console.log("Form Data", data);
     if (post) {
-      const file = data.image[0]
-        ? await blogService.uploadImage(data.image[0])
-        : null;
-      if (file) {
-        await blogService.deleteImage(post.featureImage);
-      }
-      const dbPost = await blogService.updateBlog(blog.$id, {
+      console.log(data);
+
+      await blogService.deleteImage(post["feature-image"]);
+      const dbPost = await blogService.updateBlog(user.$id, {
         ...data,
-        featureImage: file ? file.$id : null,
       });
       if (dbPost) {
         navigate(`/blog/${dbPost.$id}`);
@@ -37,27 +36,27 @@ const PostForm = ({ post }) => {
     } else {
       const file = await blogService.uploadImage(data.image[0]);
       if (file) {
+        console.log("File uploaded successfully", file);
         const fileId = file.$id;
-        data.featureImage = fileId;
+        data.image = fileId;
         const dbBlog = await blogService.createBlog({
           ...data,
           userId: user.$id,
         });
         if (dbBlog) {
-          navigate(`/blog/${dbBlog.$id}`);
+          navigate(`/post/${dbBlog.$id}`);
         }
+      } else {
+        console.error("Failed to upload image");
       }
     }
   };
 
   const slugTransfrom = (value) => {
     if (value && typeof value === "string")
-      return value
-        .trim()
-        .toLowerCase()
-        .replace(/^[a-zA-Z\d\s]+/g, "-")
-        .replace(/\s/g, "-");
+      return value.trim().toLowerCase().replace(/\s/g, "-");
 
+    console.log(value);
     return "";
   };
 
@@ -84,6 +83,7 @@ const PostForm = ({ post }) => {
         />
         <Input
           label="Slug :"
+          readOnly={true}
           placeholder="Slug"
           className="mb-4"
           {...register("slug", { required: true })}
@@ -101,22 +101,6 @@ const PostForm = ({ post }) => {
         />
       </div>
       <div className="w-1/3 px-2">
-        <Input
-          label="Featured Image :"
-          type="file"
-          className="mb-4"
-          accept="image/png, image/jpg, image/jpeg, image/gif"
-          {...register("image", { required: !post })}
-        />
-        {post && (
-          <div className="w-full mb-4">
-            <img
-              src={appwriteService.getFilePreview(post.featuredImage)}
-              alt={post.title}
-              className="rounded-lg"
-            />
-          </div>
-        )}
         <Select
           options={["active", "inactive"]}
           label="Status"

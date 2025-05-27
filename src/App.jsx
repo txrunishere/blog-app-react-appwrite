@@ -14,6 +14,7 @@ const App = () => {
     authService
       .getCurrentUser()
       .then((data) => {
+        console.log("App Data", data);
         if (data) {
           dispatch(login({ userData: data }));
         } else {

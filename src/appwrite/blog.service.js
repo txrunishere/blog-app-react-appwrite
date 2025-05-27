@@ -32,13 +32,14 @@ class StorageService {
         {
           title,
           content,
-          featureImage,
-          status,
+          "feature-image": featureImage,
+          status: Boolean(status),
           userId,
         }
       );
       return blog;
     } catch (error) {
+      console.log("Error");
       this.handleError("Create blog", error);
     }
   }
@@ -58,6 +59,7 @@ class StorageService {
       );
       return res;
     } catch (error) {
+      console.log("Error");
       this.handleError("Update blog", error);
     }
   }
@@ -75,19 +77,21 @@ class StorageService {
         return false;
       }
     } catch (error) {
+      console.log("Error");
       this.handleError("Delete blog", error);
     }
   }
 
   async getBlog(slug) {
     try {
-      const res = await this.database.getDocument();
+      const res = await this.database.getDocument(databaseId, collectionId, slug);
       if (res) {
         return res;
       } else {
         return false;
       }
     } catch (error) {
+      console.log("Error");
       this.handleError("Get blog", error);
     }
   }
@@ -95,7 +99,7 @@ class StorageService {
   async listBlogs() {
     try {
       const res = await this.database.listDocuments(databaseId, collectionId, [
-        Query.equal("status", "true"),
+        Query.equal("status", true),
       ]);
       if (res) {
         return res;
@@ -103,6 +107,7 @@ class StorageService {
         return false;
       }
     } catch (error) {
+      console.log("Error");
       this.handleError("List blog", error);
     }
   }
@@ -116,6 +121,7 @@ class StorageService {
         return false;
       }
     } catch (error) {
+      console.log("Error");
       this.handleError("Upload iamge", error);
     }
   }
@@ -129,6 +135,7 @@ class StorageService {
         return false;
       }
     } catch (error) {
+      console.log("Error");
       this.handleError("Delete image", error);
     }
   }

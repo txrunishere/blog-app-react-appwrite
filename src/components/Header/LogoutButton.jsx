@@ -1,7 +1,7 @@
-import React from "react";
 import { logout } from "../../features/auth/authSlice";
 import { useDispatch } from "react-redux";
 import authService from "../../appwrite/auth.service";
+import { Button } from '../'
 
 const LogoutButton = () => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const LogoutButton = () => {
 
   return (
     <div>
-      <button className="bg-zinc-700 hover:bg-zinc-600 rounded-lg px-2 py-1" onClick={handleLogout}>Logout</button>
+      <Button bgColor="bg-gray-500" className="hover:bg-gray-600" handler={() => handleLogout()}>Logout</Button>
     </div>
   );
 };

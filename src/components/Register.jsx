@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router";
 import { useDispatch } from "react-redux";
 import authService from "../appwrite/auth.service";
-import { Button, Input } from "./";
+import { Button, Input, Logo } from "./";
 import { useForm } from "react-hook-form";
 import { login as authLogin } from "../features/auth/authSlice";
 
@@ -30,7 +30,7 @@ const Register = () => {
   };
 
   return (
-    <div className="flex items-center justify-center w-full">
+    <div className="flex items-center text-black justify-center w-full">
       <div className="mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10">
         <div className="mb-2 flex justify-center">
           <span className="inline-block w-full max-w-[100px]">
@@ -74,7 +74,7 @@ const Register = () => {
                 required: true,
               })}
             />
-            <Button type={"submit"}>Create Account</Button>
+            <Button textColor="text-white" type={"submit"}>Create Account</Button>
           </div>
         </form>
       </div>

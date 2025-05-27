@@ -24,12 +24,12 @@ const Header = () => {
     },
     {
       name: "All Blogs",
-      slug: "/all-blogs",
+      slug: "/all-posts",
       active: status,
     },
     {
       name: "Add Blog",
-      slug: "/add-blog",
+      slug: "/add-post",
       active: status,
     },
   ];

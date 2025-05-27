@@ -4,7 +4,7 @@ import Container from "./Container/Container";
 import Logo from "./Logo";
 import LogoutButton from "./Header/LogoutButton";
 import Button from "./Button";
-import PostCart from "./PostCard";
+import PostCard from "./PostCard";
 import Select from "./Select";
 import Login from "./Login";
 import Register from "./Register";
@@ -20,7 +20,7 @@ export {
   Logo,
   LogoutButton,
   Button,
-  PostCart,
+  PostCard,
   Select,
   Login,
   Register,
